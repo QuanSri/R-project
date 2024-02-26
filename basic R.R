@@ -201,8 +201,10 @@ msleep %>%
  plot(pressure)
 
 # THE GRAMMAR OF GRAPHICS 
-  # Data on 
-  # mapping (aesthetic:aes) : which data on X and y axis, color(subtype)
+  #ggplot base(overall)
+   # Data which data to be use, if %>% no need to type in or else data = dataframe
+   # mapping (aesthetic:aes) : which data on X and y axis,color (which data group to diff color) 
+    #can put in ggplot to define in general or defin in geometry
   # geometry: type of plot: size, color of graph
 
 # Bar plots 
