@@ -217,10 +217,10 @@ msleep %>%
     drop_na(height) %>% 
     ggplot(aes(height))+ # first element is X 
     geom_histogram()+
-    lab(title = "Histogram of x",
+    labs(title = "Histogram of x",
         x = "x")
 
-# box plots
+# bogeom_smooth()# box plots
   starwars %>% 
     drop_na(height) %>% 
     ggplot(aes(height))+
@@ -368,5 +368,26 @@ cars %>%
   lm(dist ~ speed, data=. ) %>% 
   summary()
 
-  cor.test(cars$dist, cars$speed, method = "pearson")
+#pearson 
+cor.test(cars$dist, cars$speed, method = "pearson")
 
+ibrary(ggplot2)
+
+View(mtcars)
+
+ggplot(starwars, aes(x = height)) + 
+  geom_histogram(aes(y =..density..),
+                 colour = "black") +
+  stat_function(fun = dnorm, args = with(starwars, c(mean = mean(height), sd = sd(height))))
+
+mean(starwars$height)
+
+starwars %>% 
+  drop_na(height) %>% 
+  ggplot(aes(height))+
+  geom_histogram(aes(y = after_stat(density))) +
+  stat_function(fun = dnorm, args = with(starwars , 
+                                         c(mean = mean(height, na.rm=T),
+                                           sd = sd(height, na.rm = T))))
+
+                
