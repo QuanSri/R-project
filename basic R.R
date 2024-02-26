@@ -1,6 +1,10 @@
+# steps of data science project 
+# import -> Tidy -> Transform, Visualize, Model -> Communicate
+
 data() 
 View(starwars)
 library(tidyverse)
+
 
 starwars %>% # pipe operator it mean "and then" (shift + crtl + m)
   filter(height > 150 & mass < 200) %>% # select data
