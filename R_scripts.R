@@ -194,7 +194,7 @@ df %>%
 #plotting look at script "basic R"
 ### Analysis
 # Hypothesis testing 
-## categorical ~ categorical
+## categorical ~ categorical (independent)
 
 #prepared data
 group_size <- df %>% 
@@ -209,15 +209,19 @@ expected_test<-group_size %>%
   chisq.test()
 
 expected_test$expected
+#if 2x2 100% of expected more than 10,
+#if 2xN, N>2 80% of expected more than 5   
+
 # chi squared #
 
 # chi squared goodness of fit test
+#test similarity between group
 group_size %>% 
   select(Size) %>% 
   table() %>% 
   chisq.test()
 
-# chi squared test of independence
+# chi squared test of independence 
 group_size %>% 
   table() %>% 
   chisq.test()
@@ -226,16 +230,30 @@ group_size %>%
 group_size %>% 
   table() %>% 
   fisher.test()
+
 ## categorical ~ continues (independent)
-# Assumption check (if pass t-test)
+# Assumption check-normal distubution (if pass t-test),(wilcox.test)
+  # test variance equality with levene's test 
+df %>%
+  leveneTest(var2 ~ var1, data = .)
+
+df %>%
+  var.test(var2 ~ var1, data = .)
+  #if not pass set var.equal = FALSE
+
 #t test p value
 df %>% 
   filter(var1 %in% c("Africa", "Europe") ) %>% 
-  t.test(var2 ~ var1, data = .,
+  t.test(var2 ~ var1, data = .,   # var 1 group, var 2 cont
          altrnative = "two.sided",
-         paired = FALSE)
+         paired = FALSE,
+         var.equal = TRUE)
 
 # Man-whitney/rank sum test
+df %>%
+ wilcox.test(var2 ~ var1, #var1 group , var 2 cont
+            data = .,
+            alternative = "two.sided")
 
 # one way ANOVA paired more than 2 categorical
 
@@ -257,7 +275,10 @@ df %>%
 
 ## continues  ~ continues 
 # Pearson correlation 
+cor.test(df$var1, df$var2, method = "pearson")
+
 # Spearman correlation
+cor.test(df$var1, df$var2, method = "spearman")
 
 #linear model 
 

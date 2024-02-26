@@ -194,14 +194,14 @@ msleep %>%
   select(vore, order) %>% 
   filter(order %in% c("Rodentia", "Primates")) %>% # select "r" and "P" in order group
   table() %>% 
-  prop.table(margin = 1)*100
+  prop.table(margin = 1)*100 # percentage, comment out for frequency 
 
 # Visualize
 #############################
  plot(pressure)
 
 # THE GRAMMAR OF GRAPHICS 
-  # data
+  # Data on 
   # mapping (aesthetic:aes) : which data on X and y axis, color(subtype)
   # geometry: type of plot: size, color of graph
 
@@ -286,11 +286,26 @@ TTest_plot <-gapminder %>%
 TTest_plot
 
 #t test p value (is diff real-> test with t test)
+gapminder %>%
+  filter(continent %in% c("Africa", "Europe") ) %>% 
+  leveneTest(lifeExp ~ continent, data = .)
+
+gapminder %>%
+  filter(continent %in% c("Africa", "Europe") ) %>% 
+  var.test(lifeExp ~ continent, data = .)
+
 gapminder %>% 
   filter(continent %in% c("Africa", "Europe") ) %>% 
   t.test(lifeExp ~ continent, data = .,
          altrnative = "two.sided",
          paired = FALSE)
+  
+#Wilcox rank sum tes
+gapminder %>% 
+  filter(continent %in% c("Africa", "Europe") ) %>% 
+  wilcox.test(lifeExp ~ continent, data = .,
+              alternatice = "two,side")
+
 
 # ANOVA paired more than 3 group 
 
@@ -351,4 +366,5 @@ cars %>%
   lm(dist ~ speed, data=. ) %>% 
   summary()
 
+  cor.test(cars$dist, cars$speed, method = "pearson")
 
