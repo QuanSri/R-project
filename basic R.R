@@ -194,6 +194,7 @@ msleep %>%
   select(vore, order) %>% 
   filter(order %in% c("Rodentia", "Primates")) %>% # select "r" and "P" in order group
   table() %>% 
+  #addmargins() %>%  #for sum number
   prop.table(margin = 1)*100 # percentage, comment out for frequency 
 
 # Visualize

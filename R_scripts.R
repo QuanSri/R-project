@@ -5,8 +5,7 @@
 # Updated: 23-Feb-2024
 # Email:Kwansrimd@gmail.com
 
-
-  ### read me ###
+### read me ###
 ## use with Rstudio
 ## to use code in script press "ctrl+enter"
 ## select by have cursor on a row of code or higthlight all needed code
@@ -22,7 +21,7 @@ rm(list = ls())
 getwd()
 
 # set working directory(somewhere for R file)change if new project somewhere else
-setwd("D:/R")
+setwd(choose.dir())
 
 ## install and load packages
 #load base packages
@@ -40,7 +39,11 @@ pacman::p_load(pacman, psych, rio, tidyverse, dplyr)
 # data with *.csv (comma separate variable)format
 # have file.csv in the working directory(in setwd "...")
 # import by assign to an object this one name"name_data_yourself"
-df <- read.csv("file.csv", header = TRUE)
+
+#csv file .csv
+df <- read.csv(choose.files(), header = TRUE)
+#stata .dta
+df <- read_dta(choose.files())
 View(df) #check is data correct 
 
 # WORK WITH DATA ########################################################
@@ -69,12 +72,18 @@ df %>%
 df$var1 <- as.factor(df$var1)
 class(df$var1)
 
+ # change many var to factor
+df <- df %>% 
+  mutate(across(c(var1,var2,var3)),
+         as_factor())
+
 # change back to character(mutate: create ,new or write over)
 df %>% 
   mutate(var1 = as.character(var1))
 class(df$var1)
 
-#changing factor levels 
+
+# changing factor levels 
 
 levels(df$var1) #check levels
 
